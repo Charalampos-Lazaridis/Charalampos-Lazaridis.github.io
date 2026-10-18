@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Charalampos Lazaridis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Charalampos Lazaridis — AI/ML Engineer building RAG systems, AI agents and forecasting models.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single centered column (max 1040px); hero = intro + illustrative request-trace card; sections stack below */
+:root{
+  --bg:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F7;
+  --ink:#0D1626; --muted:#5A6577; --line:#DDE3EB;
+  --blue:#1E4FD6; --blue-soft:#E7EEFF;
+  --hi:#C9EA3F; --hi-ink:#16200A; --orange:#E9822A; --ok:#1FA855;
+  --shadow:0 1px 2px rgba(13,22,38,.05),0 6px 18px rgba(13,22,38,.06);
+  --shadow-lift:0 2px 4px rgba(13,22,38,.06),0 16px 36px rgba(13,22,38,.10);
+  --f-display:"Schibsted Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:16px; --r-sm:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A0F18; --surface:#111927; --surface-2:#172133;
+  --ink:#E7ECF4; --muted:#9AA6B8; --line:#233048;
+  --blue:#7397FF; --blue-soft:#1A2848;
+  --hi:#D3F25A; --hi-ink:#16200A; --orange:#F39A4A; --ok:#3DDC7A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.28);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.35),0 16px 36px rgba(0,0,0,.45);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A0F18; --surface:#111927; --surface-2:#172133;
+  --ink:#E7ECF4; --muted:#9AA6B8; --line:#233048;
+  --blue:#7397FF; --blue-soft:#1A2848;
+  --hi:#D3F25A; --hi-ink:#16200A; --orange:#F39A4A; --ok:#3DDC7A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.28);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.35),0 16px 36px rgba(0,0,0,.45);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+p{margin:0}
+.mono{font-family:var(--f-mono)}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:14px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid transparent}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-family:var(--f-display);font-weight:700;text-decoration:none;display:flex;align-items:center;gap:10px}
+.mark{width:32px;height:32px;border-radius:9px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:13px;font-weight:800;letter-spacing:.02em}
+.navlinks{display:flex;gap:4px;flex-wrap:wrap}
+.navlinks a{text-decoration:none;font-size:14.5px;color:var(--muted);padding:6px 12px;border-radius:999px;transition:background .18s,color .18s}
+.navlinks a:hover{background:var(--hi);color:var(--hi-ink)}
+@media (max-width:640px){.navlinks a:not(.keep){display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:64px 72px}
+.hero>*{min-width:0}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line);
+  padding:6px 12px 6px 10px;border-radius:999px;box-shadow:var(--shadow)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--ok) 8%,transparent)}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.remote{display:inline-flex;align-items:center;gap:8px;color:var(--ink);font-weight:600}
+.remote svg{width:16px;height:16px;color:var(--blue)}
+.hero h1{font-size:clamp(38px,6vw,60px);line-height:1.03;font-weight:800;margin-top:22px}
+.hero h1 .role{display:block;color:var(--blue);font-weight:700;font-size:.56em;margin-top:10px;letter-spacing:0}
+.lede{color:var(--muted);font-size:18px;max-width:52ch;margin-top:20px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--f-body);text-decoration:none;cursor:pointer;
+  padding:11px 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s,background .18s,border-color .18s}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--hi)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.btn svg{width:17px;height:17px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:22px;font-size:14px;color:var(--muted)}
+
+/* trace card */
+.trace{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lift);padding:18px;font-size:13.5px}
+.trace-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+.trace-head .mono{font-size:12px;color:var(--muted)}
+.lights{display:flex;gap:6px}.lights i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.step{display:grid;grid-template-columns:18px 1fr;gap:10px;padding:10px 0}
+.step+.step{border-top:1px solid var(--surface-2)}
+.step .ic{width:18px;height:18px;border-radius:6px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font:600 10px var(--f-mono);margin-top:2px}
+.step b{font-weight:600}
+.step small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:11.5px;margin-top:2px}
+.cite{font:500 11px var(--f-mono);background:var(--hi);color:var(--hi-ink);padding:1px 5px;border-radius:5px}
+.trace-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{font:500 11.5px var(--f-mono);padding:4px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.trace-note{font-size:11.5px;color:var(--muted);margin-top:10px}
+
+/* sections */
+section{padding-block:56px;border-top:1px solid var(--line)}
+.eyebrow{font:500 12px var(--f-mono);text-transform:uppercase;letter-spacing:.12em;color:var(--blue)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(26px,3.4vw,34px);font-weight:700;margin-top:8px}
+.sec-head p{color:var(--muted);max-width:46ch}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s}
+.svc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--hi)}
+.svc h3{font-size:17px;font-weight:700;margin-top:14px}
+.svc p{color:var(--muted);font-size:14.5px;margin-top:6px}
+.svc .glyph{width:38px;height:38px;border-radius:11px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+.svc .glyph svg{width:20px;height:20px}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;
+  transition:transform .2s,box-shadow .2s,border-color .2s;min-width:0}
+.proj:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--hi)}
+.proj-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.tag{font:500 11.5px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.proj h3{font-size:21px;font-weight:700;line-height:1.25}
+.proj>p{color:var(--muted)}
+.proj ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px}
+.proj li{display:grid;grid-template-columns:14px 1fr;gap:10px}
+.proj li::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--blue);margin-top:9px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.chip{font:500 12px var(--f-mono);padding:5px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink);border:1px solid transparent;transition:background .15s,color .15s}
+.chip:hover{background:var(--hi);color:var(--hi-ink)}
+.proj-link{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;text-decoration:none;color:var(--blue);padding:4px 10px;margin:-4px -10px;border-radius:8px;transition:background .15s,color .15s;white-space:nowrap}
+.proj-link:hover{background:var(--hi);color:var(--hi-ink)}
+.minor{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.minor a{display:flex;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);transition:border-color .15s,box-shadow .15s}
+.minor a:hover{border-color:var(--hi);box-shadow:var(--shadow)}
+.minor span{min-width:0}
+.minor b{font-weight:600;display:block}
+.minor small{color:var(--muted);font-size:13.5px}
+.minor .arr{color:var(--muted);flex:none}
+
+/* experience */
+.exp{display:grid;grid-template-columns:220px 1fr;gap:32px}
+.exp>*{min-width:0}
+.when{font:500 13px var(--f-mono);color:var(--muted)}
+.where{font-weight:600;margin-top:6px}
+.exp h3{font-size:22px;font-weight:700}
+.exp .sub{color:var(--muted);margin-top:4px}
+.exp ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.exp li{padding-left:18px;position:relative}
+.exp li::before{content:"";position:absolute;left:0;top:11px;width:8px;height:2px;background:var(--orange)}
+.eu{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* pub + edu */
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.two>*{min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.panel h3{font-size:18px;font-weight:700;margin-top:10px;line-height:1.35}
+.panel .src{color:var(--muted);font-size:14.5px;margin-top:8px}
+.panel p.body{margin-top:12px;font-size:15px}
+.badge{display:inline-block;font:500 11px var(--f-mono);padding:3px 8px;border-radius:6px;background:var(--hi);color:var(--hi-ink)}
+.edu{list-style:none;margin:10px 0 0;padding:0;display:grid}
+.edu li{padding:12px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:start}
+.edu li:first-child{border-top:0}
+.edu b{font-weight:600}
+.edu small{display:block;color:var(--muted);font-size:13.5px}
+.edu .when{white-space:nowrap}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.skills .panel{padding:20px}
+.skills h3{font:500 12px var(--f-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 12px}
+.skills .chips{margin:0;padding:0}
+
+/* contact */
+.contact{background:var(--ink);color:var(--bg);border-radius:24px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;box-shadow:var(--shadow-lift)}
+.contact>*{min-width:0}
+.contact h2{font-size:clamp(26px,3.6vw,36px);font-weight:800}
+.contact p{opacity:.75;margin-top:10px;max-width:50ch}
+.contact .email{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px}
+.contact .email code{font:500 15px var(--f-mono);background:color-mix(in srgb,var(--bg) 12%,transparent);padding:8px 12px;border-radius:10px;user-select:all;word-break:break-all}
+.copy{font:600 13px var(--f-body);border:0;border-radius:10px;padding:9px 14px;cursor:pointer;background:var(--hi);color:var(--hi-ink);transition:transform .15s}
+.copy:hover{transform:translateY(-1px)}
+.c-links{display:grid;gap:10px}
+.c-links a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:12px 18px;border-radius:12px;border:1px solid color-mix(in srgb,var(--bg) 22%,transparent);font-weight:600;transition:background .15s,color .15s,border-color .15s}
+.c-links a:hover{background:var(--hi);color:var(--hi-ink);border-color:var(--hi)}
+.c-links svg{width:18px;height:18px}
+footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:36px;padding-block:44px 52px}
+  .services{grid-template-columns:repeat(2,1fr)}
+  .two,.skills{grid-template-columns:1fr}
+  .exp{grid-template-columns:1fr;gap:12px}
+  .contact{grid-template-columns:1fr;padding:28px}
+}
+@media (max-width:640px){
+  .projects,.minor,.services{grid-template-columns:1fr}
+  section{padding-block:44px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark">CL</span><span>Charalampos Lazaridis</span></a>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a class="keep" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <div>
+      <span class="status"><span class="dot"></span>Open to full-time roles and freelance projects</span>
+      <h1>Charalampos Lazaridis<span class="role">AI/ML Engineer</span></h1>
+      <p class="lede">I build AI systems that hold up in real use: document Q&amp;A that cites its sources, agents that work with live data, and forecasting models trained on real-world measurements. 3+ years of applied work in EU research projects.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">See my work</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <div class="meta">
+        <span class="remote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>Based in Greece, working in your timezone</span>
+        <span>Machine Learning Engineer at CERTH</span>
+        <span>MSc, Electrical &amp; Computer Engineering</span>
+      </div>
+    </div>
+
+    <aside class="trace" aria-label="Example of a grounded answer request">
+      <div class="trace-head">
+        <div class="lights"><i></i><i></i><i></i></div>
+        <span class="mono">POST /ask</span>
+      </div>
+      <div class="step"><span class="ic">Q</span><div><b>"What's the refund window for annual plans?"</b><small>user question</small></div></div>
+      <div class="step"><span class="ic">R</span><div>Found 4 relevant passages<small>top relevance 0.82 · above 0.55 threshold</small></div></div>
+      <div class="step"><span class="ic">A</span><div>Annual plans can be refunded within 30 days of purchase <span class="cite">[1]</span>, prorated after that <span class="cite">[3]</span>.<small>every claim checked against its source</small></div></div>
+      <div class="trace-foot">
+        <span class="pill">1.2 s</span><span class="pill">$0.0021</span><span class="pill">gpt-4o-mini</span><span class="pill">schema ✓</span>
+      </div>
+      <p class="trace-note">Illustrative example of my Grounded RAG Service: answers only from your documents, with citations, cost and latency tracked per request.</p>
+    </aside>
+  </header>
+
+  <section id="services">
+    <div class="sec-head">
+      <div><div class="eyebrow">What I can build for you</div><h2>Practical AI, end to end</h2></div>
+      <p>From a first prototype to a tested service your team can rely on.</p>
+    </div>
+    <div class="services">
+      <div class="svc">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11M4 10h16M4 15h9"/><circle cx="18" cy="17" r="3"/><path d="m20.2 19.2 1.8 1.8"/></svg></div>
+        <h3>Search over your documents</h3>
+        <p>Ask questions of manuals, policies or reports and get answers with citations, or a clear "I don't know".</p>
+      </div>
+      <div class="svc">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M11 7.3 6.3 15.8M13 7.3l4.7 8.5M7.5 18h9"/></svg></div>
+        <h3>AI agents and assistants</h3>
+        <p>Assistants that route requests, call your tools and databases, and leave a trace you can debug.</p>
+      </div>
+      <div class="svc">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="m4 15 5-5 4 3 7-7"/><path d="M16 6h4v4"/></svg></div>
+        <h3>Forecasting and prediction</h3>
+        <p>Models for demand, consumption or customer behavior, built on your historical data.</p>
+      </div>
+      <div class="svc">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l2 2 4-4"/><rect x="4" y="4" width="16" height="16" rx="4"/></svg></div>
+        <h3>Model selection and testing</h3>
+        <p>Side-by-side comparisons of LLMs on your task, so you choose on quality and cost, not hype.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sec-head">
+      <div><div class="eyebrow">Selected work</div><h2>Projects</h2></div>
+      <p>Recent AI engineering builds and applied ML from EU-funded research.</p>
+    </div>
+    <div class="projects">
+      <article class="proj">
+        <div class="proj-top"><span class="tag">LLM · RAG</span><a class="proj-link" href="https://github.com/Charalampos-Lazaridis" target="_blank" rel="noopener">Code ↗</a></div>
+        <h3>Grounded RAG Service with Guardrails</h3>
+        <p>A question-answering API over a document collection that only answers from what it can cite.</p>
+        <ul>
+          <li><span>Every answer carries chunk-level citations, checked against the retrieved text.</span></li>
+          <li><span>Declines before calling the LLM when nothing relevant is found, and resists prompt injection.</span></li>
+          <li><span>Tracks cost, tokens and latency per request across GPT-4o, GPT-4o-mini and o3-mini.</span></li>
+          <li><span>Re-ingestion is safe to repeat; ships with health checks, smoke tests and a simple UI.</span></li>
+        </ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">OpenAI API</span><span class="chip">Pinecone</span><span class="chip">Pydantic</span><span class="chip">Streamlit</span></div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-top"><span class="tag">Agents · MCP · A2A</span><a class="proj-link" href="https://github.com/Charalampos-Lazaridis" target="_blank" rel="noopener">Code ↗</a></div>
+        <h3>Multi-Agent Customer Support System</h3>
+        <p>A support assistant where a router agent hands each request to the right specialist.</p>
+        <ul>
+          <li><span>Billing, technical and shipping specialists, coordinated by one router agent.</span></li>
+          <li><span>The billing agent reads a live Supabase database through an MCP server.</span></li>
+          <li><span>The shipping agent runs as its own service and is called over the A2A protocol.</span></li>
+          <li><span>Every run is traced in Langfuse for debugging and monitoring.</span></li>
+        </ul>
+        <div class="chips"><span class="chip">Google ADK</span><span class="chip">Gemini</span><span class="chip">MCP</span><span class="chip">A2A</span><span class="chip">Supabase</span><span class="chip">Langfuse</span></div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-top"><span class="tag">Forecasting · EU project</span><a class="proj-link" href="https://github.com/Charalampos-Lazaridis/Masterpiece" target="_blank" rel="noopener">Code ↗</a></div>
+        <h3>Next-Day Energy Consumption Forecasting</h3>
+        <p>Predicting tomorrow's household energy use from smart meter data for the MASTERPIECE project.</p>
+        <ul>
+          <li><span>Compared LSTM, GRU, CNN-LSTM, LightGBM and Random Forest models.</span></li>
+          <li><span>Worked with 15- and 60-minute meter readings and lookback windows from 24 hours to 7 days.</span></li>
+          <li><span>Engineered time-based and lag features; evaluated with MSE and quantile loss.</span></li>
+        </ul>
+        <div class="chips"><span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">LightGBM</span><span class="chip">scikit-learn</span><span class="chip">pandas</span></div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-top"><span class="tag">ML + LLM · EU project</span></div>
+        <h3>Personalized Energy-Saving Recommendations</h3>
+        <p>Turning smart meter data and household surveys into advice people can act on.</p>
+        <ul>
+          <li><span>CatBoost models predict habits such as peak-hour, night-time and weekend usage.</span></li>
+          <li><span>Feature importance analysis shows which household traits drive consumption.</span></li>
+          <li><span>An LLM pipeline with structured prompts writes consistent, explainable recommendations.</span></li>
+        </ul>
+        <div class="chips"><span class="chip">CatBoost</span><span class="chip">LLM APIs</span><span class="chip">Prompt templates</span><span class="chip">pandas</span></div>
+      </article>
+    </div>
+
+    <div class="minor">
+      <a href="https://github.com/Charalampos-Lazaridis/Jobs-emailer" target="_blank" rel="noopener">
+        <span><b>Jobs Emailer</b><small>Scrapes new tech job listings, filters by location and emails a daily digest.</small></span><span class="arr">↗</span>
+      </a>
+      <a href="https://github.com/Charalampos-Lazaridis/Financial-Dashboard" target="_blank" rel="noopener">
+        <span><b>Financial Dashboard</b><small>Streamlit stock dashboard with moving averages and crossover signals.</small></span><span class="arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><div><div class="eyebrow">Experience</div><h2>Where I work</h2></div></div>
+    <div class="exp">
+      <div>
+        <div class="when">Dec 2022 – Present</div>
+        <div class="where">CERTH · Thessaloniki</div>
+      </div>
+      <div>
+        <h3>Machine Learning Engineer</h3>
+        <p class="sub">Centre for Research and Technology Hellas, European research projects</p>
+        <div class="eu"><span class="chip">MASTERPIECE</span><span class="chip">SEED4AI</span></div>
+        <ul>
+          <li>Lead our team's work in the MASTERPIECE and SEED4AI EU-funded projects.</li>
+          <li>Built forecasting models for next-day energy consumption from smart meter data.</li>
+          <li>Ran behavioral profiling studies combining meter data with household surveys, using CatBoost classifiers.</li>
+          <li>Developed an LLM pipeline that generates personalized energy-efficiency recommendations.</li>
+          <li>Evaluated GPT-4o, Gemini 1.5, Claude Sonnet and DeepSeek-V3 for prompt engineering and questionnaire generation.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="sec-head"><div><div class="eyebrow">Research &amp; education</div><h2>Background</h2></div></div>
+    <div class="two">
+      <div class="panel">
+        <span class="badge">Peer-reviewed · Feature Paper</span>
+        <h3>Evaluating Reinforcement Learning Algorithms in Residential Energy Saving and Comfort Management</h3>
+        <p class="src">First author · <i>Energies</i> (MDPI), 2024</p>
+        <p class="body">Compares five RL algorithms (PPO, DDPG, DQN, A2C, SAC) for controlling home heating, balancing energy savings against occupant comfort in a simulated apartment building.</p>
+        <div class="actions" style="margin-top:18px"><a class="btn" href="https://www.mdpi.com/1996-1073/17/3/581" target="_blank" rel="noopener">Read the paper ↗</a></div>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Education</span>
+        <ul class="edu">
+          <li><span><b>AI Engineering Bootcamp</b><small>Maven · LLM APIs, RAG, LangGraph, MCP &amp; A2A, evals, agent memory</small></span><span class="when">2026</span></li>
+          <li><span><b>MSc, Advanced Technologies in ECE</b><small>Democritus University of Thrace</small></span><span class="when">2023 – 2025</span></li>
+          <li><span><b>BSc, Electrical &amp; Computer Engineering</b><small>Democritus University of Thrace</small></span><span class="when">2017 – 2022</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><div><div class="eyebrow">Toolkit</div><h2>Skills</h2></div></div>
+    <div class="skills">
+      <div class="panel"><h3>LLMs &amp; agents</h3><div class="chips"><span class="chip">OpenAI</span><span class="chip">Gemini</span><span class="chip">Claude</span><span class="chip">RAG</span><span class="chip">Embeddings</span><span class="chip">Structured outputs</span><span class="chip">Evals</span><span class="chip">LangGraph</span><span class="chip">Google ADK</span><span class="chip">MCP</span><span class="chip">A2A</span></div></div>
+      <div class="panel"><h3>Machine learning &amp; data</h3><div class="chips"><span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">scikit-learn</span><span class="chip">CatBoost</span><span class="chip">LightGBM</span><span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">Pinecone</span><span class="chip">PostgreSQL</span></div></div>
+      <div class="panel"><h3>Engineering</h3><div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Pydantic</span><span class="chip">Streamlit</span><span class="chip">Langfuse</span><span class="chip">C/C++</span><span class="chip">JavaScript</span><span class="chip">Claude Code</span><span class="chip">Cursor</span></div></div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-top:0">
+    <div class="contact">
+      <div>
+        <h2>Let's work together</h2>
+        <p>Hiring for an AI or ML role, or have a project in mind? Send me a short note about what you're building.</p>
+        <div class="email"><code id="em">lazar4f@gmail.com</code><button class="copy" id="copyBtn" type="button">Copy email</button></div>
+      </div>
+      <div class="c-links">
+        <a href="https://www.linkedin.com/in/charalampos-lazaridis-9a1b16239/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>LinkedIn</a>
+        <a href="https://github.com/Charalampos-Lazaridis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Charalampos Lazaridis</span>
+    <span>Thessaloniki, Greece</span>
+  </footer>
+</main>
+
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var btn=this, text=document.getElementById('em').textContent;
+  function done(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy email'},1600)}
+  function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById('em'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected, press Ctrl+C'}
+  try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+});
+</script>
+</body>
+</html>
