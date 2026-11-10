@@ -3,9 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Charalampos Lazaridis</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Charalampos Lazaridis — AI/ML Engineer building RAG systems, AI agents and forecasting models.">
+<title>Charalampos Lazaridis | AI/ML Engineer</title>
+<meta name="description" content="I build, evaluate and deploy AI systems from end to end. RAG, AI agents, LLM evals and forecasting, for remote roles and freelance projects.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://charalampos-lazaridis.github.io/">
+<meta property="og:title" content="Charalampos Lazaridis | AI/ML Engineer">
+<meta property="og:description" content="I build, evaluate and deploy AI systems from end to end. RAG, AI agents, LLM evals and forecasting, for remote roles and freelance projects.">
+<link rel="canonical" href="https://charalampos-lazaridis.github.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -144,6 +148,19 @@ section{padding-block:56px;border-top:1px solid var(--line)}
 .minor small{color:var(--muted);font-size:13.5px}
 .minor .arr{color:var(--muted);flex:none}
 
+/* blog */
+.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.post{display:flex;flex-direction:column;gap:12px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);
+  transition:transform .2s,box-shadow .2s,border-color .2s;min-width:0}
+.post:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--hi)}
+.post-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 12px var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.post h3{font-size:21px;font-weight:700;line-height:1.25}
+.post p{color:var(--muted);font-size:15px}
+.post .read{margin-top:auto;padding-top:6px;font-weight:600;font-size:14px;color:var(--blue)}
+.post:hover .read{color:var(--ink)}
+.post.all{background:var(--surface-2);box-shadow:none;justify-content:center}
+.post.all h3{font-size:19px}
+
 /* experience */
 .exp{display:grid;grid-template-columns:220px 1fr;gap:32px}
 .exp>*{min-width:0}
@@ -200,7 +217,7 @@ footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px;display:flex;
   .contact{grid-template-columns:1fr;padding:28px}
 }
 @media (max-width:640px){
-  .projects,.minor,.services{grid-template-columns:1fr}
+  .projects,.minor,.services,.posts{grid-template-columns:1fr}
   section{padding-block:44px}
 }
 </style>
@@ -212,6 +229,7 @@ footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px;display:flex;
     <a class="brand" href="#top"><span class="mark">CL</span><span>Charalampos Lazaridis</span></a>
     <div class="navlinks">
       <a href="#work">Work</a>
+      <a href="#blog">Blog</a>
       <a href="#experience">Experience</a>
       <a href="#research">Research</a>
       <a class="keep" href="#contact">Contact</a>
@@ -347,6 +365,28 @@ footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px;display:flex;
     </div>
   </section>
 
+  <section id="blog">
+    <div class="sec-head">
+      <div><div class="eyebrow">Writing</div><h2>Blog</h2></div>
+      <p>Notes from what I'm building, written as I go.</p>
+    </div>
+    <div class="posts">
+      <!-- Newest post first. To add a post, copy one <a class="post"> card above the "all posts" card. -->
+      <a class="post" href="https://ai-engineering-devs.hashnode.dev/starting-out" target="_blank" rel="noopener">
+        <div class="post-meta"><span>Nov 3, 2026</span><span>4 min read</span><span>Series: Financial report analyst</span></div>
+        <h3>Starting out</h3>
+        <p>The first entry in my dev log. It introduces my next project: an AI assistant that answers questions about listed companies from their SEC annual filings, with every figure tied to its source.</p>
+        <span class="read">Read post ↗</span>
+      </a>
+      <a class="post all" href="https://hashnode.com/@lampis" target="_blank" rel="noopener">
+        <div class="post-meta"><span>Hashnode</span></div>
+        <h3>All posts</h3>
+        <p>Follow the series as the project moves through retrieval, agents, memory and evaluation.</p>
+        <span class="read">Visit the blog ↗</span>
+      </a>
+    </div>
+  </section>
+
   <section id="experience">
     <div class="sec-head"><div><div class="eyebrow">Experience</div><h2>Where I work</h2></div></div>
     <div class="exp">
@@ -409,6 +449,7 @@ footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px;display:flex;
       <div class="c-links">
         <a href="https://www.linkedin.com/in/charalampos-lazaridis-9a1b16239/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>LinkedIn</a>
         <a href="https://github.com/Charalampos-Lazaridis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>GitHub</a>
+        <a href="https://hashnode.com/@lampis" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Blog</a>
       </div>
     </div>
   </section>
